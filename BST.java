@@ -99,4 +99,45 @@ public class BST<T>{
 			print(node.getRight());
 		}
 	}
+
+	public Comparable removeSmallest(BSTNode node){
+		if (node.getLeft().getLeft() == null){
+			Comparable smallest = node.getLeft().getData();
+			node.setLeft(node.getLeft().getRight());
+			return smallest;
+		} else {
+			return removeSmallest(node.getLeft());
+		}
+	}
+
+	public void delete(Comparable value){
+		root = delete(root, value);
+	}
+
+	private BSTNode delete(BSTNode node, Comparable value){
+		if (node == null){
+			return null;
+		}
+		if (node.getData().compareTo(value) == 0){
+			if (node.getLeft() == null){
+				return node.getRight();
+			} else if (node.getRight() == null){
+				return node.getLeft();
+			} else {
+				if (node.getRight().getLeft() == null){
+					node.setData(node.getRight().getData());
+					node.setRight(node.getRight().getRight());
+					return node;
+				} else {
+					node.setData(removeSmallest(node.getRight()));
+					return node;
+				}
+			}
+		} else if (node.getData().compareTo(value) < 0){
+			node.setRight(delete(node.getRight(), value));
+		} else {
+			node.setLeft(delete(node.getLeft(), value));
+		}
+		return node;
+	}
 }
