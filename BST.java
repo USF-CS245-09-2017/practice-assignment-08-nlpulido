@@ -62,9 +62,9 @@ public class BST<T>{
 		if (node.getData().compareTo(value) == 0){
 			return true;
 		} else if (node.getData().compareTo(value) > 0){
-			return find(node.getRight(), value);
-		} else {
 			return find(node.getLeft(), value);
+		} else {
+			return find(node.getRight(), value);
 		}
 	}
 
@@ -78,11 +78,11 @@ public class BST<T>{
 			BSTNode newNode = new BSTNode(value);
 			return newNode;
 		} else if (node.getData().compareTo(value) < 0){
-			BSTNode newNode = insert(node.getLeft(), value);
-			node.setLeft(newNode);
-		} else {
 			BSTNode newNode = insert(node.getRight(), value);
 			node.setRight(newNode);
+		} else {
+			BSTNode newNode = insert(node.getLeft(), value);
+			node.setLeft(newNode);
 		}
 		return node;
 	}
